@@ -1,0 +1,73 @@
+public class Usuario {
+    private String nome;
+    private String login;
+    private String senha;
+
+    public Usuario(String nome, String login, String senha) {
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nome='" + nome + '\'' +
+                ", login='" + login + '\'' +
+                '}';
+    }
+}
+import java.util.ArrayList;
+import java.util.List;
+
+public class CadastroLoginSenha {
+    private List<Usuario> usuarios;
+
+    public CadastroLoginSenha() {
+        this.usuarios = new ArrayList<>();
+    }
+
+    public void cadastrarUsuario(String nome, String login, String senha) {
+        Usuario usuario = new Usuario(nome, login, senha);
+        usuarios.add(usuario);
+        System.out.println("Usuário cadastrado com sucesso: " + usuario);
+    }
+
+    public Usuario realizarLogin(String login, String senha) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getLogin().equals(login) && usuario.getSenha().equals(senha)) {
+                System.out.println("Login bem-sucedido para o usuário: " + usuario);
+                return usuario;
+            }
+        }
+        System.out.println("Login falhou. Verifique seu login e senha.");
+        return null;
+    }
+
+    public static void main(String[] args) {
+        CadastroLoginSenha cadastroLoginSenha = new CadastroLoginSenha();
+
+        // Exemplo de cadastro de usuário
+        cadastroLoginSenha.cadastrarUsuario("João", "joao123", "senha123");
+
+        // Exemplo de login
+        Usuario usuarioLogado = cadastroLoginSenha.realizarLogin("joao123", "senha123");
+
+        // Se o login for bem-sucedido, imprima o nome do usuário
+        if (usuarioLogado != null) {
+            System.out.println("Usuário logado: " + usuarioLogado.getNome());
+        }
+    }
+}
